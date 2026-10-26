@@ -1,0 +1,80 @@
+{
+  "dart.env": {
+    "APPDATA": "${workspaceFolder}\\.flutter_appdata",
+    "ANDROID_HOME": "C:\\Users\\Pc\\AppData\\Local\\Android\\sdk",
+    "ANDROID_SDK_ROOT": "C:\\Users\\Pc\\AppData\\Local\\Android\\sdk",
+    "JAVA_HOME": "C:\\Program Files\\Android\\Android Studio\\jbr",
+    "FLUTTER_SUPPRESS_ANALYTICS": "true"
+  },
+  "dart.flutterSdkPath": "C:\\src\\flutter",
+  "dart.flutterHotReloadOnSave": "all",
+  "dart.flutterHotRestartOnSave": false,
+  "dart.flutterRememberSelectedDevice": true,
+  "dart.flutterSelectDeviceWhenConnected": true,
+  "files.autoSave": "off",
+  "dart.analysisExcludedFolders": [
+    "C:\\Projects\\TalkwithHands\\build",
+    "C:\\Projects\\TalkwithHands\\.dart_tool",
+    "C:\\Projects\\TalkwithHands\\backend\\node_modules",
+    "C:\\Projects\\TalkwithHands\\react-native-sign-detector",
+    "C:\\Projects\\TalkwithHands\\rn-sign-detector-app",
+    "C:\\Projects\\TalkwithHands\\android\\.gradle",
+    "C:\\Projects\\TalkwithHands\\android\\app\\build"
+  ],
+  "files.exclude": {
+    "**/.dart_tool": true,
+    "**/.gradle": true,
+    "**/.cxx": true,
+    "**/build": true,
+    "**/node_modules": true,
+    "react-native-sign-detector": true,
+    "rn-sign-detector-app": true
+  },
+  "files.watcherExclude": {
+    "**/.dart_tool/**": true,
+    "**/.gradle/**": true,
+    "**/.cxx/**": true,
+    "**/build/**": true,
+    "**/node_modules/**": true,
+    "**/android/app/build/**": true,
+    "**/rn-sign-detector-app/**": true,
+    "**/react-native-sign-detector/**": true
+  },
+  "search.exclude": {
+    "**/.dart_tool": true,
+    "**/.gradle": true,
+    "**/.cxx": true,
+    "**/build": true,
+    "**/node_modules": true,
+    "react-native-sign-detector": true,
+    "rn-sign-detector-app": true
+  },
+  "java.import.exclusions": [
+    "**/node_modules/**",
+    "**/.gradle/**",
+    "**/build/**",
+    "**/.cxx/**",
+    "rn-sign-detector-app/**",
+    "react-native-sign-detector/**"
+  ],
+  "typescript.tsserver.watchOptions": {
+    "excludeDirectories": [
+      "**/node_modules",
+      "**/build",
+      "**/.gradle",
+      "**/.cxx",
+      "rn-sign-detector-app",
+      "react-native-sign-detector"
+    ]
+  },
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.import.gradle.java.home": "C:\\Program Files\\Android\\Android Studio\\jbr",
+  "java.jdt.ls.java.home": "C:\\Program Files\\Android\\Android Studio\\jbr",
+  "terminal.integrated.env.windows": {
+    "APPDATA": "${workspaceFolder}\\.flutter_appdata",
+    "ANDROID_HOME": "C:\\Users\\Pc\\AppData\\Local\\Android\\sdk",
+    "ANDROID_SDK_ROOT": "C:\\Users\\Pc\\AppData\\Local\\Android\\sdk",
+    "JAVA_HOME": "C:\\Program Files\\Android\\Android Studio\\jbr",
+    "FLUTTER_SUPPRESS_ANALYTICS": "true"
+  }
+}

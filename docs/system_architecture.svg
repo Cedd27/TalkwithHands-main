@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#111"/>
+    </marker>
+    <style>
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 42px; font-weight: 700; fill: #111; }
+      .figure { font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; fill: #111; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 24px; fill: #111; text-anchor: middle; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 18px; fill: #222; text-anchor: middle; }
+      .box { fill: #fff; stroke: #111; stroke-width: 4; rx: 12; }
+      .line { stroke: #111; stroke-width: 4; fill: none; marker-end: url(#arrow); }
+      .line2 { stroke: #111; stroke-width: 4; fill: none; marker-start: url(#arrow); marker-end: url(#arrow); }
+      .icon { fill: #111; stroke: #111; stroke-width: 2; }
+      .thin { stroke: #111; stroke-width: 3; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="1400" height="820" fill="#fff"/>
+  <text x="36" y="62" class="title">System Architecture</text>
+  <text x="36" y="126" class="figure">Figure 11</text>
+
+  <!-- User: Learner -->
+  <g transform="translate(120 205)">
+    <circle cx="45" cy="34" r="28" class="icon"/>
+    <path d="M13 112 C16 72, 74 72, 77 112 Z" class="icon"/>
+    <path d="M14 54 L76 54" class="thin"/>
+    <path d="M24 50 C28 22, 62 22, 66 50" class="thin"/>
+    <rect x="27" y="108" width="42" height="32" rx="5" fill="#fff" stroke="#111" stroke-width="4"/>
+    <circle cx="48" cy="124" r="8" fill="#111"/>
+    <text x="45" y="178" class="label">Learner</text>
+  </g>
+
+  <!-- User: Admin -->
+  <g transform="translate(120 430)">
+    <circle cx="45" cy="34" r="28" class="icon"/>
+    <path d="M13 112 C16 72, 74 72, 77 112 Z" class="icon"/>
+    <circle cx="82" cy="105" r="25" fill="#fff" stroke="#111" stroke-width="4"/>
+    <circle cx="82" cy="105" r="8" fill="#111"/>
+    <path d="M82 72 L82 88 M82 122 L82 138 M49 105 L65 105 M99 105 L115 105 M59 82 L70 93 M94 117 L105 128 M105 82 L94 93 M70 117 L59 128" class="thin"/>
+    <text x="45" y="178" class="label">Admin</text>
+  </g>
+
+  <!-- Flutter mobile app -->
+  <g transform="translate(365 278)">
+    <rect x="0" y="0" width="210" height="180" class="box"/>
+    <rect x="70" y="18" width="70" height="132" rx="12" fill="#fff" stroke="#111" stroke-width="5"/>
+    <circle cx="105" cy="136" r="6" fill="#111"/>
+    <text x="105" y="64" class="small">Flutter</text>
+    <text x="105" y="90" class="small">Mobile App</text>
+    <text x="105" y="218" class="label">Talk With Hands</text>
+  </g>
+
+  <!-- On-device AI module -->
+  <g transform="translate(350 595)">
+    <rect x="0" y="0" width="240" height="120" class="box"/>
+    <circle cx="62" cy="48" r="20" fill="#fff" stroke="#111" stroke-width="4"/>
+    <path d="M62 28 L62 68 M42 48 L82 48 M48 34 L76 62 M76 34 L48 62" class="thin"/>
+    <rect x="122" y="25" width="70" height="48" fill="#fff" stroke="#111" stroke-width="4"/>
+    <path d="M132 35 H182 M132 49 H182 M132 63 H182" class="thin"/>
+    <text x="120" y="96" class="small">Camera, AI Model, TTS</text>
+    <text x="120" y="154" class="label">On-device Processing</text>
+  </g>
+
+  <!-- Internet -->
+  <g transform="translate(670 315)">
+    <path d="M40 90 C75 45, 145 45, 180 90" class="thin"/>
+    <path d="M65 92 C88 68, 132 68, 155 92" class="thin"/>
+    <path d="M92 94 C103 84, 117 84, 128 94" class="thin"/>
+    <circle cx="110" cy="112" r="8" fill="#111"/>
+    <text x="110" y="165" class="label">Internet</text>
+  </g>
+
+  <!-- Web/API server -->
+  <g transform="translate(905 270)">
+    <rect x="0" y="0" width="230" height="190" class="box"/>
+    <circle cx="70" cy="70" r="46" fill="#fff" stroke="#111" stroke-width="4"/>
+    <path d="M24 70 H116 M70 24 C48 48,48 92,70 116 M70 24 C92 48,92 92,70 116 M37 42 C55 52,85 52,103 42 M37 98 C55 88,85 88,103 98" class="thin"/>
+    <rect x="132" y="34" width="68" height="28" fill="#fff" stroke="#111" stroke-width="4"/>
+    <rect x="132" y="76" width="68" height="28" fill="#fff" stroke="#111" stroke-width="4"/>
+    <rect x="132" y="118" width="68" height="28" fill="#fff" stroke="#111" stroke-width="4"/>
+    <circle cx="146" cy="48" r="4" fill="#111"/>
+    <circle cx="146" cy="90" r="4" fill="#111"/>
+    <circle cx="146" cy="132" r="4" fill="#111"/>
+    <text x="115" y="228" class="label">Node.js Express API</text>
+  </g>
+
+  <!-- Database -->
+  <g transform="translate(1210 310)">
+    <ellipse cx="85" cy="32" rx="62" ry="24" fill="#fff" stroke="#111" stroke-width="4"/>
+    <path d="M23 32 V142 C23 155,147 155,147 142 V32" fill="#fff" stroke="#111" stroke-width="4"/>
+    <path d="M23 69 C23 82,147 82,147 69 M23 106 C23 119,147 119,147 106" class="thin"/>
+    <text x="85" y="198" class="label">MongoDB Database</text>
+  </g>
+
+  <!-- Auth provider -->
+  <g transform="translate(895 65)">
+    <rect x="0" y="0" width="260" height="120" class="box"/>
+    <circle cx="62" cy="52" r="28" fill="#fff" stroke="#111" stroke-width="4"/>
+    <path d="M62 52 L62 28 M62 52 L82 64 M62 52 L42 68" class="thin"/>
+    <text x="155" y="48" class="small">Firebase Core</text>
+    <text x="155" y="76" class="small">Google / Facebook Login</text>
+    <text x="130" y="154" class="label">External Auth Services</text>
+  </g>
+
+  <!-- Google Drive video storage -->
+  <g transform="translate(900 595)">
+    <rect x="0" y="0" width="245" height="120" class="box"/>
+    <path d="M68 24 L110 24 L139 76 L97 76 Z" fill="#fff" stroke="#111" stroke-width="4"/>
+    <path d="M110 24 L154 24 L196 96 L152 96 Z" fill="#fff" stroke="#111" stroke-width="4"/>
+    <path d="M139 76 L196 96 L118 96 L97 76 Z" fill="#fff" stroke="#111" stroke-width="4"/>
+    <text x="122" y="96" class="small">Video URL storage</text>
+    <text x="122" y="154" class="label">Google Drive Videos</text>
+  </g>
+
+  <!-- Connections -->
+  <path d="M245 295 L360 350" class="line2"/>
+  <path d="M245 520 L360 405" class="line2"/>
+  <path d="M575 368 L670 368" class="line2"/>
+  <path d="M850 368 L900 368" class="line2"/>
+  <path d="M1135 368 L1205 368" class="line2"/>
+  <path d="M470 590 L470 465" class="line2"/>
+  <path d="M1025 190 L1025 265" class="line2"/>
+  <path d="M1025 590 L1025 465" class="line2"/>
+  <path d="M900 650 C760 650, 670 510, 575 435" class="line"/>
+
+  <!-- Flow notes -->
+  <text x="303" y="300" class="small">learn signs</text>
+  <text x="302" y="492" class="small">manage content</text>
+  <text x="625" y="345" class="small">HTTPS</text>
+  <text x="870" y="345" class="small">REST API</text>
+  <text x="1172" y="345" class="small">Mongoose</text>
+  <text x="760" y="635" class="small">play video_url</text>
+</svg>

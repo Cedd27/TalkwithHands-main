@@ -1,0 +1,29 @@
+{
+  "name": "talk-with-hands-rn-sign-detector",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "copy-model-assets": "node scripts/copy-model-assets.js",
+    "typecheck": "tsc --noEmit",
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios"
+  },
+  "dependencies": {
+    "@react-native-community/slider": "^4.5.6",
+    "react": "^19.0.0",
+    "react-native": "^0.79.0",
+    "react-native-fast-tflite": "^3.0.1",
+    "react-native-nitro-modules": "^0.29.0",
+    "react-native-reanimated": "^3.17.0",
+    "react-native-vision-camera": "^4.7.0",
+    "react-native-worklets-core": "^1.5.0"
+  },
+  "devDependencies": {
+    "@react-native-community/cli": "^18.0.0",
+    "@react-native/typescript-config": "^0.79.0",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^19.0.14",
+    "typescript": "^5.8.0"
+  }
+}

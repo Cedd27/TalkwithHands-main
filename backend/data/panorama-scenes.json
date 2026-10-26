@@ -1,0 +1,192 @@
+[
+  {
+    "id": "bench",
+    "key": "bench",
+    "title": "Bench",
+    "image_asset": "assets/360/BENCH.jpg",
+    "image_url": "",
+    "icon": "bench",
+    "sort_order": 1,
+    "is_active": true,
+    "hotspots": [
+
+      {
+        "id": "bench-tricycle",
+        "key": "tricycle",
+        "label": "Tricycle",
+        "video_asset": "",
+        "video_url": "https://res.cloudinary.com/dxbupqx6u/video/upload/v1785888703/tricycle_kqfsn4.mp4",
+        "yaw": -72,
+        "pitch": 7,
+        "size": 1,
+        "sort_order": 2,
+        "front_video_url": "https://res.cloudinary.com/dxbupqx6u/video/upload/v1785888698/tricycle_front_s18ih3.mp4",
+        "left_video_url": "",
+        "right_video_url": "",
+        "image_url": "https://res.cloudinary.com/dxbupqx6u/image/upload/v1785888558/tricycle_m1aloc.jpg"
+      },
+      {
+        "id": "bench-tricycle-2",
+        "key": "tricycle",
+        "label": "Tricycle",
+        "video_asset": "",
+        "video_url": "https://res.cloudinary.com/dxbupqx6u/video/upload/v1785888703/tricycle_kqfsn4.mp4",
+        "yaw": 23,
+        "pitch": 3,
+        "size": 1,
+        "sort_order": 3,
+        "front_video_url": "https://res.cloudinary.com/dxbupqx6u/video/upload/v1785888698/tricycle_front_s18ih3.mp4",
+        "left_video_url": "",
+        "right_video_url": "",
+        "image_url": "https://res.cloudinary.com/dxbupqx6u/image/upload/v1785888558/tricycle_m1aloc.jpg"
+      },
+      {
+        "id": "bench-road",
+        "key": "road",
+        "label": "Road",
+        "video_asset": "",
+        "video_url": "https://res.cloudinary.com/dxbupqx6u/video/upload/v1785891631/Road_jj8n9b.mp4",
+        "yaw": 45,
+        "pitch": -18,
+        "size": 1,
+        "sort_order": 4,
+        "front_video_url": "https://res.cloudinary.com/dxbupqx6u/video/upload/v1785891596/road_front_vamoas.mp4",
+        "left_video_url": "",
+        "right_video_url": "",
+        "image_url": "https://res.cloudinary.com/dxbupqx6u/image/upload/v1785888554/road_bzcoen.jpg"
+      },
+      {
+        "id": "bench-car",
+        "key": "car",
+        "label": "Car",
+        "video_asset": "",
+        "video_url": "https://res.cloudinary.com/dxbupqx6u/video/upload/v1785888705/car_tcgh8e.mp4",
+        "yaw": -115,
+        "pitch": 7,
+        "size": 1,
+        "sort_order": 5,
+        "front_video_url": "https://res.cloudinary.com/dxbupqx6u/video/upload/v1785888699/car_front_zm2i0s.mp4",
+        "left_video_url": "",
+        "right_video_url": "",
+        "image_url": "https://res.cloudinary.com/dxbupqx6u/image/upload/v1785888559/car_zwjnh8.jpg"
+      }
+    ]
+  },
+  {
+    "id": "classroom",
+    "key": "classroom",
+    "title": "Classroom",
+    "image_asset": "assets/360/Classroom.png",
+    "image_url": "",
+    "icon": "classroom",
+    "sort_order": 2,
+    "is_active": true,
+    "hotspots": [
+      {
+        "id": "classroom-chair",
+        "key": "chair",
+        "label": "Chair",
+        "video_asset": "",
+        "video_url": "",
+        "yaw": 90,
+        "pitch": 0,
+        "size": 1,
+        "sort_order": 1
+      }
+    ]
+  },
+  {
+    "id": "school",
+    "key": "school",
+    "title": "School",
+    "image_asset": "assets/360/School.png",
+    "image_url": "",
+    "icon": "meeting_room",
+    "sort_order": 2,
+    "is_active": true,
+    "hotspots": [
+      {
+        "id": "school-surroundings",
+        "key": "clouds",
+        "label": "Clouds",
+        "video_asset": "",
+        "video_url": "",
+        "yaw": 90,
+        "pitch": 0,
+        "size": 1,
+        "sort_order": 1
+      }
+    ]
+  },
+  {
+    "id": "cafe",
+    "key": "cafe",
+    "title": "Cafe",
+    "image_asset": "assets/360/CAFE.jpg",
+    "image_url": "",
+    "icon": "cafe",
+    "sort_order": 4,
+    "is_active": true,
+    "hotspots": []
+  },
+  {
+    "id": "cr",
+    "key": "cr",
+    "title": "CR",
+    "image_asset": "assets/360/CR.jpg",
+    "image_url": "",
+    "icon": "route",
+    "sort_order": 5,
+    "is_active": true,
+    "hotspots": []
+  },
+  {
+    "id": "pathway",
+    "key": "pathway",
+    "title": "Pathway",
+    "image_asset": "assets/360/PATHWAY.jpg",
+    "image_url": "",
+    "icon": "crossing",
+    "sort_order": 6,
+    "is_active": true,
+    "hotspots": [
+      {
+        "id": "pathway-car",
+        "key": "car",
+        "label": "Car",
+        "video_asset": "",
+        "video_url": "https://res.cloudinary.com/dxbupqx6u/video/upload/v1785888705/car_tcgh8e.mp4",
+        "yaw": -88,
+        "pitch": -3,
+        "size": 1,
+        "sort_order": 1,
+        "front_video_url": "https://res.cloudinary.com/dxbupqx6u/video/upload/v1785888699/car_front_zm2i0s.mp4",
+        "left_video_url": "",
+        "right_video_url": "",
+        "image_url": "https://res.cloudinary.com/dxbupqx6u/image/upload/v1785888559/car_zwjnh8.jpg"
+      }
+    ]
+  },
+  {
+    "id": "pavilion",
+    "key": "pavilion",
+    "title": "Pavilion",
+    "image_asset": "assets/360/PAVILION.jpg",
+    "image_url": "",
+    "icon": "route",
+    "sort_order": 7,
+    "is_active": true,
+    "hotspots": []
+  },
+  {
+    "id": "testing",
+    "key": "testing",
+    "title": "Testing",
+    "image_asset": "assets/360/testing.jpg",
+    "image_url": "",
+    "icon": "route",
+    "sort_order": 8,
+    "is_active": true,
+    "hotspots": []
+  }
+]

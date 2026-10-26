@@ -1,0 +1,42 @@
+{
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "functions": {
+    "source": "backend"
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "talk-with-hands",
+          "appId": "1:643950016422:android:42f29853a3b4187f784167",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "talk-with-hands",
+          "configurations": {
+            "android": "1:643950016422:android:42f29853a3b4187f784167",
+            "ios": "1:643950016422:ios:6ec02264156c4e38784167",
+            "macos": "1:643950016422:ios:6ec02264156c4e38784167",
+            "web": "1:643950016422:web:278209c3790bce96784167",
+            "windows": "1:643950016422:web:ff0b3cad7e4c6e90784167"
+          }
+        }
+      }
+    }
+  }
+}

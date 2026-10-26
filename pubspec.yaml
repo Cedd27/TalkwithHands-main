@@ -1,0 +1,130 @@
+name: sign_language_app
+description: Sign Language to Text and Speech — native mobile app
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Camera
+  camera: ^0.11.4
+  camera_android: ^0.10.10+16
+
+  # MediaPipe hand landmarks
+  hand_landmarker: ^2.2.0
+  tflite_flutter: ^0.12.1
+  path_provider: ^2.1.2
+  google_fonts: ^6.3.3
+  flutter_svg: ^2.0.0
+
+
+  sqflite: ^2.4.1
+
+  # Face mesh overlay
+ # google_mlkit_face_mesh_detection: ^0.4.2
+
+  # Text-to-speech
+  flutter_tts: ^4.0.2
+
+  # Permissions
+  permission_handler: ^11.3.1
+
+  cupertino_icons: ^1.0.6
+  firebase_core: ^4.7.0
+  dio: ^5.8.0+1
+  crypto: ^3.0.6
+  flutter_secure_storage: ^9.2.4
+  google_sign_in: ^6.3.0
+  flutter_facebook_auth: ^7.1.1
+  flutter_dotenv: ^6.0.0
+  video_player: ^2.10.0
+  cached_network_image: ^3.3.1
+  audioplayers: ^6.1.0
+  shared_preferences: ^2.5.3
+  confetti: ^0.8.0
+  photo_view: ^0.15.0
+  webview_flutter: ^4.10.0
+  image_picker: ^1.1.2
+  flutter_shaders: ^0.1.3
+  panorama_viewer: ^2.0.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  shaders:
+    - shaders/chroma_key.frag
+  assets:
+    - assets/360/    
+    - web/icons/Icon-192.png
+    - assets/images/app_logo.png
+    - assets/images/home_design.png
+    - assets/images/guess_asl_icon.png
+    - assets/images/guess_me_icon.png
+    - assets/images/Left.png
+    - assets/images/Front.png
+    - assets/images/Right.png
+    - assets/guess_me/videos/
+    - lib/games/guesssme1/assets/videos/
+    - assets/guess_me/videos/Alphabet/
+    - assets/guess_me/videos/Animal/
+    - assets/guess_me/videos/Color/
+    - assets/guess_me/videos/Direction and Location/
+    - assets/guess_me/videos/Emotion/
+    - assets/guess_me/videos/Environment/
+    - assets/guess_me/videos/Family/
+    - assets/images/PPS.jpg
+    - assets/images/alphabets/
+    - assets/images/numbers/
+    # Video-heavy folders are excluded from the share APK to keep the build small.
+    # Use backend-hosted videos for tutorial playback in the distributed app.
+   # Video-heavy folders are excluded from the share APK to keep the build small.
+    # Use backend-hosted videos for tutorial playback in the distributed app.
+    - assets/ml/
+    - data/sign_model.tflite
+    - data/sign_labels.txt
+    - assets/js/three.min.js
+    - assets/images/hand.png
+    - assets/Kumusta.mp4
+    - assets/Alpha.mp4
+    - assets/Progress.mp4
+    - assets/Num.mp4
+    - assets/Basic.mp4
+    - assets/180.mp4
+    - assets/Set.mp4
+    - assets/guess_asl/
+    - assets/kalinaw/
+    - lib/.env
+    - assets/ml/sign_sequence_classifier.tflite
+    - assets/ml/sequence_labels.txt
+    - assets/images/characters.png
+    - assets/images/charwavenobg.png
+    - assets/images/home_design.png
+    - assets/images/home_bg_clean.png
+    - assets/images/renzz.jpg
+    - assets/images/jade.jpg
+    - assets/images/jjderama.jpg
+    - assets/images/ecal.png
+    - assets/calcuavatars/
+    - assets/audio/
+    - backend/data/basic-words.json
+    - backend/data/alphabet-signs.json
+    - backend/data/number-signs.json
+    - assets/images/diana.jpg
+    - assets/images/mary.jpg
+    - assets/NEW BACKGROUND/new alphabet.png
+    - assets/NEW BACKGROUND/new basic words.png
+    - assets/NEW BACKGROUND/new games.png
+    - assets/NEW BACKGROUND/new 180 pictures.png
+    - assets/NEW BACKGROUND/new number.png
+    - assets/NEW BACKGROUND/new progress.png
+    - assets/NEW BACKGROUND/new settings.png
+    - assets/NEW BACKGROUND/new sign in log in.png
+    - assets/NEW BACKGROUND/new sign to text.png

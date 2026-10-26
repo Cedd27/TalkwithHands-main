@@ -1,0 +1,9 @@
+{
+  "name": "talk-with-hands-workspace",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix backend start",
+    "backend:start": "npm --prefix backend start",
+    "backend:dev": "npm --prefix backend run dev"
+  }
+}

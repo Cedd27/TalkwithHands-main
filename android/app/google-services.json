@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "643950016422",
+    "project_id": "talk-with-hands",
+    "storage_bucket": "talk-with-hands.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643950016422:android:42f29853a3b4187f784167",
+        "android_client_info": {
+          "package_name": "com.example.sign_language_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643950016422-f1h4b9ctj6b9j01ik50fm44q4bk5guh2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sign_language_app",
+            "certificate_hash": "364a7af373ddd2d15df6a720fabff3f58fe635dd"
+          }
+        },
+        {
+          "client_id": "643950016422-fl4kr341g6ptd0umjjqv0uklakatbu3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZPe5QUqCHskJqwt3W8Lfh-71AjyoO-q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643950016422-fl4kr341g6ptd0umjjqv0uklakatbu3b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643950016422-ond0mqno0245guk2qiefllvajas1nler.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.signLanguageApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
