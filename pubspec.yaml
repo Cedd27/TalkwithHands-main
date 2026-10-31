@@ -63,6 +63,8 @@ flutter:
     - shaders/chroma_key.frag
   assets:
     - assets/360/    
+    - assets/data/panorama_hotspots.json
+    - assets/180_videos/
     - web/icons/Icon-192.png
     - assets/images/app_logo.png
     - assets/images/home_design.png

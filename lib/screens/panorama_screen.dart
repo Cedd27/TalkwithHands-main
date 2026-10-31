@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:panorama_viewer/panorama_viewer.dart';
 import 'package:video_player/video_player.dart';
 
+import '../data/panorama_hotspot_data.dart';
 import '../models/panorama_scene.dart';
 import '../services/api_config.dart';
 import '../services/panorama_service.dart';
@@ -14,6 +15,7 @@ import '../services/video_player_service.dart';
 import '../ui/app_shell.dart';
 import '../utils/url_helper.dart';
 import '../widgets/transparent_sign_video_overlay.dart';
+import '../widgets/panorama_play_marker.dart';
 import '../widgets/video_player_with_controls.dart';
 
 class PanoramaScreen extends StatefulWidget {
@@ -76,7 +78,13 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
   // and taking the whole app down with it.
   Future<List<PanoramaScene>> _fetchScenes() async {
     try {
-      return await PanoramaService().listPanoramaScenes();
+      final scenesFuture = PanoramaService().listPanoramaScenes();
+      final hotspotDataFuture = loadPanoramaHotspotData();
+      final scenes = await scenesFuture;
+      final hotspotData = await hotspotDataFuture;
+      final mergedScenes = applyPanoramaHotspotData(scenes, hotspotData);
+      _cachedScenes = mergedScenes;
+      return mergedScenes;
     } catch (e) {
       throw Exception('Failed to load 180 pictures: $e');
     }
@@ -87,11 +95,32 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
     return '$_baseUrl/$cleanPath';
   }
 
+  String _sceneImageAsset(PanoramaScene scene) {
+    switch (scene.id) {
+      case 'classroom':
+        return 'assets/360/Classroom_v2_taller.jpg';
+      case 'school':
+        return 'assets/360/School_blur_fill.jpg';
+      default:
+        return scene.imageAsset;
+    }
+  }
+
   String _imageUrl(PanoramaScene scene) {
+    if (_usesBundledPanorama(scene)) {
+      return _assetUrl(_sceneImageAsset(scene));
+    }
     if (scene.imageUrl.trim().isNotEmpty) {
       return getOptimizedUrl(scene.imageUrl, width: 1600);
     }
     return _assetUrl(scene.imageAsset);
+  }
+
+  ImageProvider<Object> _categoryImageProvider(PanoramaScene scene) {
+    if (_usesBundledPanorama(scene)) {
+      return ResizeImage(AssetImage(_sceneImageAsset(scene)), width: 480);
+    }
+    return CachedNetworkImageProvider(_imageUrl(scene));
   }
 
   // Equirectangular photos meant for 360°/180° viewing are often huge
@@ -102,14 +131,20 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
   // width here keeps every device safe while still looking sharp.
   static const int _maxPanoramaTextureWidth = 2048;
 
-  ImageProvider _panoramaTextureProvider(PanoramaScene scene) {
+  ImageProvider<Object> _panoramaTextureProvider(PanoramaScene scene) {
+    final ImageProvider<Object> imageProvider;
+    if (_usesBundledPanorama(scene)) {
+      imageProvider = AssetImage(_sceneImageAsset(scene));
+    } else {
+      imageProvider = CachedNetworkImageProvider(_imageUrl(scene));
+    }
     return ResizeImage(
-      CachedNetworkImageProvider(_imageUrl(scene)),
+      imageProvider,
       width: _maxPanoramaTextureWidth,
     );
   }
 
-  bool _usesFlatPanorama(PanoramaScene scene) =>
+  bool _usesBundledPanorama(PanoramaScene scene) =>
       scene.id == 'classroom' || scene.id == 'school';
 
   Future<void> _loadPanorama(int index) async {
@@ -137,22 +172,9 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
     setState(() => _panoramaLoading = false);
   }
 
-  // BENCH.jpg hotspot positions come from backend/data/panorama-scenes.json.
-  // Keeping this as a direct pass-through avoids stale hard-coded overrides
-  // pulling the marker back to the blue bench table.
-  double _hotspotPitch(PanoramaScene scene, int i) => scene.hotspots[i].pitch;
-
-  double _hotspotYaw(PanoramaScene scene, int i) => scene.hotspots[i].yaw;
-
   // ── Navigate panorama camera to a hotspot (no auto-play — user taps hotspot) ──
   void _navigateToHotspot(PanoramaHotspot hotspot) {
-    final scene = _scenes[_selectedIndex];
-    final i = scene.hotspots.indexOf(hotspot);
-    if (i < 0) {
-      _panoramaController.setView(hotspot.pitch, hotspot.yaw);
-      return;
-    }
-    _panoramaController.setView(_hotspotPitch(scene, i), _hotspotYaw(scene, i));
+    _panoramaController.setView(hotspot.pitch, hotspot.yaw);
   }
 
   void _showHotspotVideo(PanoramaHotspot hotspot) {
@@ -330,6 +352,8 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
           return _PanoramaCategoryCard(
             title: scene.title,
             imageUrl: _imageUrl(scene),
+            imageProvider: _categoryImageProvider(scene),
+            useAssetImage: _usesBundledPanorama(scene),
             icon: _sceneIcon(scene),
             highlighted: index == 0,
             onView: () => _loadPanorama(index),
@@ -421,31 +445,6 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
     );
   }
 
-  // Classroom and School are wide panorama strips, not equirectangular
-  // sphere photos. Keep them flat so their original proportions stay intact.
-  Widget _buildFlatPanorama(PanoramaScene scene) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final width = math.max(constraints.maxWidth, 1600.0);
-        final aspectRatio = scene.id == 'classroom' ? 6.97 : 7.35;
-        return InteractiveViewer(
-          constrained: false,
-          minScale: 1,
-          maxScale: 4,
-          boundaryMargin: const EdgeInsets.all(80),
-          child: SizedBox(
-            width: width,
-            height: width / aspectRatio,
-            child: Image(
-              image: _panoramaTextureProvider(scene),
-              fit: BoxFit.fill,
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   // ── 180 viewer with hotspots + thumbnail strip ─────────────────────────
   Widget _buildViewer() {
     final scene = _scenes[_selectedIndex];
@@ -463,38 +462,36 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    if (_usesFlatPanorama(scene))
-                      _buildFlatPanorama(scene)
-                    else
-                      PanoramaViewer(
-                        key: ValueKey('panorama-${scene.id}'),
-                        animSpeed: 0.0,
-                        sensorControl: SensorControl.none,
-                        panoramaController: _panoramaController,
-                        hotspots: [
-                          for (var i = 0; i < currentHotspots.length; i++)
-                            Hotspot(
-                              name: currentHotspots[i].id,
-                              latitude: _hotspotPitch(scene, i),
-                              longitude: _hotspotYaw(scene, i),
-                              width: 46 *
-                                  (currentHotspots[i].size <= 0
-                                      ? 1
-                                      : currentHotspots[i].size),
-                              height: 46 *
-                                  (currentHotspots[i].size <= 0
-                                      ? 1
-                                      : currentHotspots[i].size),
-                              widget: _HotspotMarker(
-                                onTap: () =>
-                                    _showHotspotVideo(currentHotspots[i]),
-                              ),
+                    PanoramaViewer(
+                      key: ValueKey('panorama-${scene.id}'),
+                      latitude: _panoramaController.getLatitude(),
+                      longitude: _panoramaController.getLongitude(),
+                      zoom: _panoramaController.getZoom(),
+                      animSpeed: 0.0,
+                      sensorControl: SensorControl.none,
+                      panoramaController: _panoramaController,
+                      hotspots: [
+                        for (final hotspot in currentHotspots)
+                          Hotspot(
+                            name: hotspot.id,
+                            latitude: hotspot.pitch,
+                            longitude: hotspot.yaw,
+                            width: (130 * hotspot.size)
+                                .clamp(120.0, 170.0)
+                                .toDouble(),
+                            height: (110 * hotspot.size)
+                                .clamp(104.0, 132.0)
+                                .toDouble(),
+                            widget: GestureDetector(
+                              onTap: () => _showHotspotVideo(hotspot),
+                              child: PanoramaPlayMarker(label: hotspot.label),
                             ),
-                        ],
-                        child: Image(
-                          image: _panoramaTextureProvider(scene),
-                        ),
+                          ),
+                      ],
+                      child: Image(
+                        image: _panoramaTextureProvider(scene),
                       ),
+                    ),
                     if (!_panoramaLoading)
                       _DragHint(key: ValueKey('hint-${scene.id}')),
                     if (_panoramaLoading)
@@ -514,44 +511,6 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
         _buildWordsList(currentHotspots),
         const SizedBox(height: 16),
       ],
-    );
-  }
-}
-
-// ── Round play-button hotspot marker placed on the sphere ──────────────────
-class _HotspotMarker extends StatelessWidget {
-  final VoidCallback onTap;
-
-  const _HotspotMarker({required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.black.withValues(alpha: 0.22),
-          border: Border.all(
-            color: Colors.white.withValues(alpha: 0.9),
-            width: 2.4,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        alignment: Alignment.center,
-        child: const Icon(
-          Icons.play_arrow_rounded,
-          color: Colors.white,
-          size: 22,
-        ),
-      ),
     );
   }
 }
@@ -638,11 +597,13 @@ class _PanoramaVideoDialogState extends State<_PanoramaVideoDialog> {
 
   Future<void> _initialize() async {
     try {
+      final sources = VideoPlayerService.buildSources(
+        videoUrl: widget.videoUrl,
+        videoAsset: widget.videoAsset,
+      );
       final controller = await VideoPlayerService.createController(
-        sources: VideoPlayerService.buildSources(
-          videoUrl: widget.videoUrl,
-          videoAsset: widget.videoAsset,
-        ),
+        sources: sources,
+        volume: 0,
         playbackSpeed: 1.0,
       );
 
@@ -873,6 +834,8 @@ class _ErrorState extends StatelessWidget {
 class _PanoramaCategoryCard extends StatelessWidget {
   final String title;
   final String imageUrl;
+  final ImageProvider imageProvider;
+  final bool useAssetImage;
   final bool highlighted;
   final VoidCallback onView;
   final IconData icon;
@@ -880,6 +843,8 @@ class _PanoramaCategoryCard extends StatelessWidget {
   const _PanoramaCategoryCard({
     required this.title,
     required this.imageUrl,
+    required this.imageProvider,
+    required this.useAssetImage,
     required this.onView,
     required this.icon,
     this.highlighted = false,
@@ -924,37 +889,51 @@ class _PanoramaCategoryCard extends StatelessWidget {
                   // cropped off (top/bottom or sides) instead of
                   // letterboxing, so the card never shows empty bars.
                   Positioned.fill(
-                    child: CachedNetworkImage(
-                      imageUrl: imageUrl,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.center,
-                      // Thumbnails only need to be a few hundred px wide,
-                      // not the full panorama resolution — this caps how
-                      // large a bitmap gets decoded/cached per card.
-                      memCacheWidth: 480,
-                      fadeInDuration: const Duration(milliseconds: 150),
-                      errorWidget: (_, __, ___) => Container(
-                        color: const Color(0xFF08414A),
-                        alignment: Alignment.center,
-                        child: Icon(
-                          Icons.threesixty_rounded,
-                          color: kAccent.withValues(alpha: 0.8),
-                          size: 36,
-                        ),
-                      ),
-                      placeholder: (_, __) => Container(
-                        color: const Color(0xFF08414A),
-                        alignment: Alignment.center,
-                        child: const SizedBox(
-                          width: 22,
-                          height: 22,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2.4,
-                            color: kAccent,
+                    child: useAssetImage
+                        ? Image(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => Container(
+                              color: const Color(0xFF08414A),
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.threesixty_rounded,
+                                color: kAccent.withValues(alpha: 0.8),
+                                size: 36,
+                              ),
+                            ),
+                          )
+                        : CachedNetworkImage(
+                            imageUrl: imageUrl,
+                            fit: BoxFit.cover,
+                            alignment: Alignment.center,
+                            // Thumbnails only need to be a few hundred px wide,
+                            // not the full panorama resolution — this caps how
+                            // large a bitmap gets decoded/cached per card.
+                            memCacheWidth: 480,
+                            fadeInDuration: const Duration(milliseconds: 150),
+                            errorWidget: (_, __, ___) => Container(
+                              color: const Color(0xFF08414A),
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.threesixty_rounded,
+                                color: kAccent.withValues(alpha: 0.8),
+                                size: 36,
+                              ),
+                            ),
+                            placeholder: (_, __) => Container(
+                              color: const Color(0xFF08414A),
+                              alignment: Alignment.center,
+                              child: const SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.4,
+                                  color: kAccent,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
                   ),
                   // Category icon badge
                   Positioned(

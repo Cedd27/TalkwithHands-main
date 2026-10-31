@@ -49,7 +49,6 @@ bool isGoogleDriveVideoUrl(String value) {
   return host.endsWith('drive.google.com') ||
       host.endsWith('drive.usercontent.google.com') ||
       host.endsWith('docs.google.com');
-
 }
 
 String? resolvePrimaryVideoPlayUrl({
@@ -102,7 +101,8 @@ bool isBundledVideoAsset(String value) {
 
   // The current APK excludes the old video-heavy asset folders, so only
   // explicitly bundled lesson videos should be attempted through Flutter assets.
-  return lower.startsWith('assets/tutorial_videos/') ||
+  return lower.startsWith('assets/180_videos/') ||
+      lower.startsWith('assets/tutorial_videos/') ||
       lower.startsWith('assets/videos/');
 }
 
@@ -126,8 +126,9 @@ String? absoluteBackendUrl(String pathOrUrl) {
     return null;
   }
 
-  final cleanBase =
-      baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl;
+  final cleanBase = baseUrl.endsWith('/')
+      ? baseUrl.substring(0, baseUrl.length - 1)
+      : baseUrl;
   if (value.startsWith('/')) return '$cleanBase$value';
 
   final encodedPath = value.split('/').map(Uri.encodeComponent).join('/');

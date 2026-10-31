@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../services/background_music_service.dart';
 import '../ui/background_music_region.dart';
 import '../ui/app_shell.dart';
 import 'auth_screen.dart';
+import 'alphabets_screen.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -145,6 +147,20 @@ class LandingScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                        if (kDebugMode) ...[
+                          const SizedBox(height: 42),
+                          _LandingPillButton(
+                            label: 'Preview Alphabets (Guest)',
+                            background: const Color(0xFF39D8E8),
+                            borderColor: const Color(0xFF1387C9),
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    const AlphabetsScreen(userName: 'Guest'),
+                              ),
+                            ),
+                          ),
+                        ],
                         SizedBox(height: compact ? 68 : 120),
                       ],
                     ),

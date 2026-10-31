@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/alphabets_screen.dart';
@@ -668,21 +669,24 @@ class _AppMenuDrawerState extends State<AppMenuDrawer> {
                         );
                       },
                     ),
-                    _MenuTile(
-                      icon: Icons.threesixty_rounded,
-                      title: '180° Pictures',
-                      active: widget.activeScreen == '180 Pictures',
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        if (widget.activeScreen == '180 Pictures') return;
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) =>
-                                PanoramaScreen(userName: widget.userName),
-                          ),
-                        );
-                      },
-                    ),
+                    if (!kIsWeb &&
+                        (defaultTargetPlatform == TargetPlatform.android ||
+                            defaultTargetPlatform == TargetPlatform.iOS))
+                      _MenuTile(
+                        icon: Icons.threesixty_rounded,
+                        title: '180° Pictures',
+                        active: widget.activeScreen == '180 Pictures',
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          if (widget.activeScreen == '180 Pictures') return;
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  PanoramaScreen(userName: widget.userName),
+                            ),
+                          );
+                        },
+                      ),
                     _MenuTile(
                       icon: Icons.sports_esports_rounded,
                       title: 'Game',

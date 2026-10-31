@@ -17,11 +17,9 @@ class PlayableVideoSource {
     required this.isNetwork,
   });
 
-  const PlayableVideoSource.network(this.label, this.value)
-      : isNetwork = true;
+  const PlayableVideoSource.network(this.label, this.value) : isNetwork = true;
 
-  const PlayableVideoSource.asset(this.label, this.value)
-      : isNetwork = false;
+  const PlayableVideoSource.asset(this.label, this.value) : isNetwork = false;
 }
 
 class VideoPlayerService {
@@ -37,12 +35,14 @@ class VideoPlayerService {
     final directUrl = normalizePlayableVideoUrl(videoUrl);
 
     if (proxyUrl != null) {
-      sources.add(PlayableVideoSource.network('cached backend video', proxyUrl));
+      sources
+          .add(PlayableVideoSource.network('cached backend video', proxyUrl));
     }
     if (backendAssetUrl != null &&
         backendAssetUrl != proxyUrl &&
         backendAssetUrl != directUrl) {
-      sources.add(PlayableVideoSource.network('backend asset', backendAssetUrl));
+      sources
+          .add(PlayableVideoSource.network('backend asset', backendAssetUrl));
     }
     if (isBundledVideoAsset(videoAsset)) {
       sources.add(PlayableVideoSource.asset('bundled asset', videoAsset));
@@ -69,11 +69,13 @@ class VideoPlayerService {
       VideoPlayerController? controller;
       try {
         if (source.isNetwork) {
-          final cached = await VideoCacheService.instance.getCachedFile(source.value);
+          final cached =
+              await VideoCacheService.instance.getCachedFile(source.value);
           if (cached != null) {
             controller = VideoPlayerController.file(cached);
           } else {
-            controller = VideoPlayerController.networkUrl(Uri.parse(source.value));
+            controller =
+                VideoPlayerController.networkUrl(Uri.parse(source.value));
           }
         } else {
           controller = VideoPlayerController.asset(source.value);
